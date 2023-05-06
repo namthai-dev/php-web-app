@@ -34,7 +34,6 @@
             <?php
                 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
                 $mysqli = mysqli_connect("localhost", "root", "", "php-web-app-db");
-                                                                                //database
                 $query = mysqli_query($mysqli, "Select * from list");                      // SQL Query
                 while($row = mysqli_fetch_array($query))
                 {
@@ -47,12 +46,21 @@
                             " - " . $row['time_edited'] ."</td>";
                         Print '<td align="center"><a href="edit.php?id='. 
                             $row['id'] .'">edit</a></td>';
-                        Print '<td align="center"><a href="delete.php?id='. 
-                            $row['id'] .'">delete</a></td>';
+                            Print '<td align="center"><a href="#" onclick="myFunction('.$row['id'].')">delete</a> </td>';
                         Print '<td align="center">'. $row['public'] . "</td>";
                     Print "</tr>";
                 }
             ?>
         </table>
+        <script>
+            function myFunction(id)
+            {
+            var r = confirm("Are you sure you want to delete this record?");
+            if(r == true)
+            {
+                window.location.assign("delete.php?id=" + id);
+            }
+            }
+        </script>
 	</body>
 </html>
