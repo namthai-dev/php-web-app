@@ -21,13 +21,36 @@
             <input type="submit" value="Add to list"/>
         </form>
     	<h2 align="center">My list</h2>
-    	<table border="1px" width="100%">
-		<tr>
-			<th>Id</th>
-			<th>Details</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</tr>
-		</table>
+        <table border="1px" width="100%">
+            <tr>
+                <th>Id</th>
+                <th>Details</th>
+                <th>Post Time</th>
+                <th>Edit Time</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Public Post</th>
+            </tr>
+            <?php
+                mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+                $mysqli = mysqli_connect("localhost", "root", "", "php-web-app-db");
+                                                                                //database
+                $query = mysqli_query($mysqli, "Select * from list");                      // SQL Query
+                while($row = mysqli_fetch_array($query))
+                {
+                    Print "<tr>";
+                        Print '<td align="center">'. $row['id'] . "</td>";
+                        Print '<td align="center">'. $row['details'] . "</td>";
+                        Print '<td align="center">'. $row['date_posted'] . 
+                            " - " . $row['time_posted'] . "</td>";
+                        Print '<td align="center">'. $row['date_edited'] . 
+                            " - " . $row['time_edited'] ."</td>";
+                        Print '<td align="center"><a href="edit.php">edit</a> </td>';
+                        Print '<td align="center"><a href="delete.php">delete</a> </td>';
+                        Print '<td align="center">'. $row['public'] . "</td>";
+                    Print "</tr>";
+                }
+            ?>
+        </table>
 	</body>
 </html>
